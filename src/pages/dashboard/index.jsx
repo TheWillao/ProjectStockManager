@@ -5,11 +5,18 @@ export default function Dashboard() {
   const items = JSON.parse(localStorage.getItem("items"));
 
   const limitDate = new Date().setDate(new Date().getDate() - 10);
-  const recentItems = items.filter((item) => {
-    return item.createdAt.toString() >= limitDate.toString();
-  });
-  const lowQuantityItems = items.filter((item) => item.amount < 10);
-  const totalInventory = items.reduce((sum, item) => +sum + +item.amount, 0);
+
+  let recentItems;
+  let lowQuantityItems;
+  let totalInventory;
+
+  if (items) {
+    recentItems = items.filter((item) => {
+      return item.createdAt.toString() >= limitDate.toString();
+    });
+    lowQuantityItems = items.filter((item) => item.amount < 10);
+    totalInventory = items.reduce((sum, item) => +sum + +item.amount, 0);
+  }
 
   return (
     <div className="h-100 p-5">
@@ -17,7 +24,7 @@ export default function Dashboard() {
       <div className="row gap-4 mt-5">
         <div className="d-flex flex-column col text-center bg-black rounded py-4 gap-3">
           <span>Diversidade de itens</span>
-          <h3>{items.length}</h3>
+          <h3>{items?.length}</h3>
         </div>
         <div className="d-flex flex-column col text-center bg-black rounded py-4 gap-3">
           <span>Inventário total</span>
@@ -25,11 +32,11 @@ export default function Dashboard() {
         </div>
         <div className="d-flex flex-column col text-center bg-black rounded py-4 gap-3">
           <span>Itens recentes</span>
-          <h3>{recentItems.length}</h3>
+          <h3>{recentItems?.length}</h3>
         </div>
         <div className="d-flex flex-column col text-center bg-black rounded py-4 gap-3">
           <span>Itens acabando</span>
-          <h3>{lowQuantityItems.length}</h3>
+          <h3>{lowQuantityItems?.length}</h3>
         </div>
       </div>
       <div className="w-100 gap-4 mt-4 d-flex">
@@ -65,7 +72,7 @@ export default function Dashboard() {
           )}
         </div>
         <div className="rounded py-4 px-5 bg-black w-50 d-flex flex-column gap-4">
-          {lowQuantityItems && lowQuantityItems.length > 0 ? (
+          {lowQuantityItems && lowQuantityItems?.length > 0 ? (
             lowQuantityItems.map((item) => {
               return (
                 <div className="justify-content-between d-flex" key={item.id}>
