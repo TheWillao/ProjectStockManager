@@ -66,7 +66,7 @@ export default function Dashboard() {
               })
             ) : (
               <div className="row d-flex w-100 px-5 justify-content-center">
-                Não há itens recentemente cadastrados.
+                Não há itens recentemente cadastrados nos últimos 10 dias.
               </div>
             )}
           </div>
@@ -87,7 +87,7 @@ export default function Dashboard() {
               })
             ) : (
               <div className="row d-flex w-100 px-5 justify-content-center">
-                Não há itens cadastrados acabando.
+                Não há itens cadastrados com quantidade abaixo de 10.
               </div>
             )}
           </div>
